@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>POMSessions</groupId>
-  <artifactId>POMSessions</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+	<groupId>POMSessions</groupId>
+	<artifactId>POMSessions</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 
-  <name>POMSessions</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+	<name>POMSessions</name>
+	<!-- FIXME change it to the project's website -->
+	<url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<selenium-java>4.9.0</selenium-java>
+		<extentreports-version>5.0.8</extentreports-version>
+		<aspectj.version>1.9.19</aspectj.version>
+		<allure.version>2.22.1</allure.version>
+	</properties>
 
-  <dependencies>
+	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.8.1</version>
+			<version>${selenium-java}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -34,16 +39,39 @@
 			<artifactId>poi</artifactId>
 			<version>5.2.3</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.3</version>
 		</dependency>
-  </dependencies>
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports-version}</version>
+		</dependency>
 
-  <build>
-    <plugins>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>${allure.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.28</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -65,16 +93,19 @@
 					<reuseForks>true</reuseForks>
 					<!-- <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
 					<suiteXmlFiles>
-						<suiteXmlFile>src/main/resources/testrunners/testng_regression.xml</suiteXmlFile>
+						<suiteXmlFile>
+							src/main/resources/testrunners/testng_regression.xml</suiteXmlFile>
 					</suiteXmlFiles>
 
-					
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+
 
 				</configuration>
 
-				
 
 			</plugin>
 		</plugins>
-  </build>
+	</build>
 </project>
